@@ -15,6 +15,7 @@
     "@mantine/core": "^6.0.15",
     "@mantine/hooks": "^6.0.15",
     "@mantine/next": "^6.0.15",
+    "@tabler/icons-react": "^2.23.0",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
@@ -31,6 +32,7 @@
     "yarn": "please use pnpm"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
     "prettier": "^2.8.8"
   }
 }

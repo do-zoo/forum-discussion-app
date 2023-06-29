@@ -1,4 +1,7 @@
+import { DesktopLayout } from '@forum-discussion/components/layouts';
 import { RootStyleRegistry } from '@forum-discussion/configs';
+import { adaptiveRender } from '@forum-discussion/utils';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Forum Discussion App',
@@ -14,8 +17,22 @@ export default function RootLayout({
     <html lang="en-US">
       <head />
       <body>
-        <RootStyleRegistry>{children}</RootStyleRegistry>
+        <RootStyleRegistry>
+          <Layout>{children}</Layout>
+        </RootStyleRegistry>
       </body>
     </html>
   );
+}
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
+function Layout({ children }: LayoutProps) {
+  const viewport = cookies().get('viewport')?.value;
+
+  return adaptiveRender(viewport, {
+    desktop: <DesktopLayout>{children}</DesktopLayout>,
+    mobile: <DesktopLayout>{children}</DesktopLayout>,
+  });
 }
