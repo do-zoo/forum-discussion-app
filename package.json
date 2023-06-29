@@ -6,9 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write src/"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/server": "^11.11.0",
+    "@mantine/core": "^6.0.15",
+    "@mantine/hooks": "^6.0.15",
+    "@mantine/next": "^6.0.15",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
@@ -18,5 +24,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "engines": {
+    "node": ">=16.8.x",
+    "npm": "please use pnpm",
+    "yarn": "please use pnpm"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
   }
 }
