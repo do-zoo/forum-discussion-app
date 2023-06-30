@@ -1,46 +1,69 @@
-import BrandLogoWithText from '@forum-discussion/assets/svg/logo-with-text.svg';
+'use client';
+import React from 'react';
 import {
+  ActionIcon,
   Box,
   Button,
-  Center,
   Divider,
+  Drawer,
+  Group,
+  Header as MantineHeader,
   Stack,
-  Text,
+  rem,
   useMantineTheme,
 } from '@mantine/core';
-import { IconCategory, IconChevronDown } from '@tabler/icons-react';
-import Link from 'next/link';
+import BrandLogoWithText from '@forum-discussion/assets/svg/logo-with-text.svg';
+import { useDisclosure } from '@mantine/hooks';
+import {
+  IconCategory,
+  IconChevronDown,
+  IconMenu2,
+  IconX,
+} from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
 import { MAIN_MENU } from '../_menu';
+import Link from 'next/link';
 
-export function SideBar() {
+export function Header() {
+  const [opened, toggleAction] = useDisclosure(false);
   const pathname = usePathname();
-
   const theme = useMantineTheme();
 
   return (
-    <Box component="aside" pos="sticky" w="100%" maw={342} top={0} left={0}>
-      <Stack py={24} px="md" h="100vh" bg="white" maw={262}>
-        <Stack>
-          <Center>
-            <Link href="/">
-              <BrandLogoWithText
-                style={{
-                  height: 40,
-                }}
-              />
-            </Link>
-          </Center>
-          <Divider />
-        </Stack>
-        <Box
-          style={{
-            flex: '1 1 auto',
-          }}
-        >
-          <Text color="grape" mb="xs">
-            Main Menu
-          </Text>
+    <>
+      <MantineHeader height={72} p="md" pos="sticky" top={0} zIndex={999999}>
+        <Group h="100%" noWrap position="apart">
+          <BrandLogoWithText
+            style={{
+              height: 32,
+            }}
+          />
+          <ActionIcon
+            variant="subtle"
+            size="md"
+            onClick={() => {
+              toggleAction.toggle();
+            }}
+          >
+            {opened ? <IconX /> : <IconMenu2 />}
+          </ActionIcon>
+        </Group>
+      </MantineHeader>
+      <Drawer
+        opened={opened}
+        onClose={toggleAction.close}
+        withCloseButton={false}
+        position="top"
+        styles={{
+          body: {
+            padding: rem(8),
+          },
+          content: {
+            minHeight: '100vh',
+          },
+        }}
+      >
+        <Stack pt={72}>
           <Stack spacing="sm">
             {MAIN_MENU.map((menu, index) => (
               <Button
@@ -85,18 +108,15 @@ export function SideBar() {
               Categories
             </Button>
           </Stack>
-        </Box>
-        <Stack>
           <Divider />
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet
-            at dolor id porta.
-          </Text>
-          <Button radius="xl" size="md">
-            Join
-          </Button>
+          <Stack>
+            <Button size="md">Sign up</Button>
+            <Button variant="light" size="md">
+              Login
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
-    </Box>
+      </Drawer>
+    </>
   );
 }

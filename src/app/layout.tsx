@@ -1,4 +1,7 @@
-import { DesktopLayout } from '@forum-discussion/components/layouts';
+import {
+  DesktopLayout,
+  MobileLayout,
+} from '@forum-discussion/components/layouts';
 import { RootStyleRegistry } from '@forum-discussion/configs';
 import { adaptiveRender } from '@forum-discussion/utils';
 import { cookies } from 'next/headers';
@@ -33,6 +36,6 @@ function Layout({ children }: LayoutProps) {
 
   return adaptiveRender(viewport, {
     desktop: <DesktopLayout>{children}</DesktopLayout>,
-    mobile: <DesktopLayout>{children}</DesktopLayout>,
+    mobile: <MobileLayout>{children}</MobileLayout>,
   });
 }
