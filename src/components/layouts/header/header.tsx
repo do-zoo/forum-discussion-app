@@ -1,8 +1,7 @@
 'use client';
-import React from 'react';
+import BrandLogoWithText from '@forum-discussion/assets/svg/logo-with-text.svg';
 import {
   ActionIcon,
-  Box,
   Button,
   Divider,
   Drawer,
@@ -12,7 +11,6 @@ import {
   rem,
   useMantineTheme,
 } from '@mantine/core';
-import BrandLogoWithText from '@forum-discussion/assets/svg/logo-with-text.svg';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconCategory,
@@ -20,14 +18,26 @@ import {
   IconMenu2,
   IconX,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MAIN_MENU } from '../_menu';
-import Link from 'next/link';
+import { useEffect } from 'react';
 
 export function Header() {
   const [opened, toggleAction] = useDisclosure(false);
   const pathname = usePathname();
   const theme = useMantineTheme();
+  useEffect(() => {
+    toggleAction.close();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  function isActive(path: string) {
+    if (pathname !== '/') {
+      return pathname === path;
+    }
+    return pathname.startsWith(path);
+  }
 
   return (
     <>
@@ -78,8 +88,9 @@ export function Header() {
                     justifyContent: 'flex-start',
                   },
                   label: {
-                    color:
-                      pathname !== menu.path ? theme.colors.dark[9] : undefined,
+                    color: isActive(menu.path)
+                      ? undefined
+                      : theme.colors.dark[9],
                   },
                 }}
                 component={Link}
