@@ -54,10 +54,10 @@ export function DesktopLayout({ children }: DesktopLayoutProps) {
     <Box bg="gray.2" mih="100vh">
       <Flex justify="space-between">
         <SideBar />
-        <Box component="main" maw={512} w="100%">
+        <Box component="main" maw={512} w="100%" mx="auto">
           {children}
         </Box>
-        <Box component="aside" pos="sticky" w="100%" maw={342} top={0} left={0}>
+        <Box component="aside" pos="fixed" w="100%" maw={342} top={0} right={0}>
           <Stack py={24} px="md" h="100vh" spacing="xl">
             <Box>
               <Title order={4} mb="sm">

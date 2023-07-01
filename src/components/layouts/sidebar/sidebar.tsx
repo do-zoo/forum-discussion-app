@@ -19,7 +19,7 @@ export function SideBar() {
   const theme = useMantineTheme();
 
   return (
-    <Box component="aside" pos="sticky" w="100%" maw={342} top={0} left={0}>
+    <Box component="aside" pos="fixed" w="100%" maw={342} top={0} left={0}>
       <Stack py={24} px="md" h="100vh" bg="white" maw={262}>
         <Stack>
           <Center>
