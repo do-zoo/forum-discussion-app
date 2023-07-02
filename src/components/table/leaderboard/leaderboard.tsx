@@ -68,7 +68,9 @@ export function LeaderBoardTable({ theadStyles }: LeaderBoardTableProps) {
         </td>
         <td>
           <Group noWrap>
-            <Avatar radius="xl" />
+            <Avatar radius="xl" color="grape">
+              HA
+            </Avatar>
             <Text fw={500}>Hasanudin Entop</Text>
           </Group>
         </td>

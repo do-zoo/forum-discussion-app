@@ -3,6 +3,7 @@ import {
   MobileLayout,
 } from '@forum-discussion/components/layouts';
 import { RootStyleRegistry } from '@forum-discussion/configs';
+import { QueryProvider } from '@forum-discussion/configs/react-query';
 import { adaptiveRender } from '@forum-discussion/utils';
 import { cookies } from 'next/headers';
 
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="en-US">
       <head />
       <body>
-        <RootStyleRegistry>
-          <Layout>{children}</Layout>
-        </RootStyleRegistry>
+        <QueryProvider>
+          <RootStyleRegistry>
+            <Layout>{children}</Layout>
+          </RootStyleRegistry>
+        </QueryProvider>
       </body>
     </html>
   );
