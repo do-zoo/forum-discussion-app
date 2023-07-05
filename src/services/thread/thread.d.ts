@@ -6,7 +6,5 @@ type AllThreadResponse = BaseAPIResponse<{
 }>;
 
 export interface ThreadServices {
-  getAll(
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<AllThreadResponse>>;
+  getAll(config?: AxiosRequestConfig): Promise<AllThreadResponse>;
 }

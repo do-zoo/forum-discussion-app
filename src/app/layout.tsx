@@ -6,6 +6,7 @@ import { RootStyleRegistry } from '@forum-discussion/configs';
 import { QueryProvider } from '@forum-discussion/configs/react-query';
 import { adaptiveRender } from '@forum-discussion/utils';
 import { cookies } from 'next/headers';
+import ClientProviders from './client-providers';
 
 export const metadata = {
   title: 'Forum Discussion App',
@@ -22,9 +23,11 @@ export default function RootLayout({
       <head />
       <body>
         <QueryProvider>
-          <RootStyleRegistry>
-            <Layout>{children}</Layout>
-          </RootStyleRegistry>
+          <ClientProviders>
+            <RootStyleRegistry>
+              <Layout>{children}</Layout>
+            </RootStyleRegistry>
+          </ClientProviders>
         </QueryProvider>
       </body>
     </html>
