@@ -24,7 +24,7 @@ async function Layout({ children }: LayoutProps) {
 
   return adaptiveRender(viewport, {
     desktop: <DesktopLayout session={session}>{children}</DesktopLayout>,
-    mobile: <MobileLayout>{children}</MobileLayout>,
+    mobile: <MobileLayout session={session}>{children}</MobileLayout>,
   });
 }
 

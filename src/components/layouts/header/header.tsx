@@ -8,6 +8,7 @@ import {
   Group,
   Header as MantineHeader,
   Stack,
+  Text,
   rem,
   useMantineTheme,
 } from '@mantine/core';
@@ -15,15 +16,23 @@ import { useDisclosure } from '@mantine/hooks';
 import {
   IconCategory,
   IconChevronDown,
+  IconLogout,
   IconMenu2,
+  IconUser,
   IconX,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MAIN_MENU } from '../_menu';
 import { useEffect } from 'react';
+import { JWT } from 'next-auth/jwt';
+import { signOut } from 'next-auth/react';
 
-export function Header() {
+interface HeaderProps {
+  session: JWT | null;
+}
+
+export function Header({ session }: HeaderProps) {
   const [opened, toggleAction] = useDisclosure(false);
   const pathname = usePathname();
   const theme = useMantineTheme();
@@ -119,13 +128,73 @@ export function Header() {
               Categories
             </Button>
           </Stack>
-          <Divider />
-          <Stack>
-            <Button size="md">Sign up</Button>
-            <Button variant="light" size="md">
-              Login
-            </Button>
-          </Stack>
+          {session ? (
+            <div>
+              <Text color="grape" mb="xs">
+                Account
+              </Text>
+              <Stack spacing="sm">
+                <Button
+                  px={8}
+                  variant="subtle"
+                  size="md"
+                  fullWidth
+                  leftIcon={<IconUser />}
+                  styles={{
+                    inner: {
+                      justifyContent: 'flex-start',
+                    },
+                    label: {
+                      color: isActive('/profile')
+                        ? undefined
+                        : theme.colors.dark[9],
+                    },
+                  }}
+                  component={Link}
+                  href="/profile"
+                >
+                  Profile
+                </Button>
+
+                <Button
+                  px={8}
+                  variant="subtle"
+                  size="md"
+                  fullWidth
+                  leftIcon={<IconLogout />}
+                  color="red"
+                  styles={{
+                    inner: {
+                      justifyContent: 'flex-start',
+                    },
+                    label: {
+                      flex: '1 0 auto',
+                    },
+                  }}
+                  onClick={async () => await signOut()}
+                >
+                  Logout
+                </Button>
+              </Stack>
+            </div>
+          ) : (
+            <>
+              <Divider />
+              <Stack>
+                <Button size="md" component={Link} href="/auth/register">
+                  Sign up
+                </Button>
+                <Button
+                  variant="light"
+                  size="md"
+                  component={Link}
+                  href="/auth/login"
+                >
+                  Login
+                </Button>
+              </Stack>
+            </>
+          )}
         </Stack>
       </Drawer>
     </>
