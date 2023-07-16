@@ -14,9 +14,11 @@ import { useSelectedLayoutSegments } from 'next/navigation';
 import React from 'react';
 import { LAYOUT_BLACK_LIST } from './_variable';
 import { SideBar } from './sidebar';
+import { JWT } from 'next-auth/jwt';
 
 interface DesktopLayoutProps {
   children: React.ReactNode;
+  session: JWT | null;
 }
 
 const TOP_CATEGORIES = [
@@ -49,16 +51,16 @@ const LEADERBOARDS = [
   },
 ];
 
-export function DesktopLayout({ children }: DesktopLayoutProps) {
+export function DesktopLayout({ children, session }: DesktopLayoutProps) {
   const segment = useSelectedLayoutSegments();
 
   const enableLayout = !LAYOUT_BLACK_LIST.some(path => segment[0] === path);
 
   return (
     <Box bg="gray.2" mih="100vh">
-      {enableLayout && (
+      {enableLayout ? (
         <Flex justify="space-between">
-          <SideBar />
+          <SideBar session={session} />
           <Box component="main" maw={512} w="100%" mx="auto">
             {children}
           </Box>
@@ -120,8 +122,9 @@ export function DesktopLayout({ children }: DesktopLayoutProps) {
             </Stack>
           </Box>
         </Flex>
+      ) : (
+        <>{children}</>
       )}
-      {children}
     </Box>
   );
 }

@@ -35,11 +35,9 @@ export const userService: MemberAuthService = {
           'Content-Type': 'application/json',
         },
       })
-      .then(res => res.data)
+      .then(res => res?.data)
       .catch(err => {
-        if (axios.isAxiosError(err)) {
-          console.log(err.response?.data);
-        }
+        throw err;
       });
   },
   async login(payload) {
@@ -47,9 +45,7 @@ export const userService: MemberAuthService = {
       .post(MEMBER_AUTH.login, payload)
       .then(res => res.data)
       .catch(err => {
-        if (axios.isAxiosError(err)) {
-          console.log(err.response?.data);
-        }
+        throw err;
       });
   },
 };

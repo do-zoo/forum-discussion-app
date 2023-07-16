@@ -1,7 +1,8 @@
 'use client';
 
 import { CacheProvider } from '@emotion/react';
-import { useEmotionCache, MantineProvider } from '@mantine/core';
+import { MantineProvider, useEmotionCache } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { useServerInsertedHTML } from 'next/navigation';
 import { MANTINE_CONFIG } from './mantine.config';
 
@@ -21,6 +22,7 @@ export function RootStyleRegistry({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider value={cache}>
       <MantineProvider theme={MANTINE_CONFIG} withGlobalStyles withNormalizeCSS>
+        <Notifications />
         {children}
       </MantineProvider>
     </CacheProvider>

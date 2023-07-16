@@ -4,10 +4,12 @@ import { useThreads } from '@forum-discussion/hooks-api';
 import { Box, Button, Group, Paper, Stack } from '@mantine/core';
 import { IconSunrise } from '@tabler/icons-react';
 import { IconRocket } from '@tabler/icons-react';
+import { useSession } from 'next-auth/react';
 import React from 'react';
 
 export function Desktop() {
   const { data: threads, isLoading } = useThreads({});
+
   return (
     <Box>
       <Paper

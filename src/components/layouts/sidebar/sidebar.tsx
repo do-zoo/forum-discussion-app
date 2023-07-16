@@ -8,12 +8,19 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
-import { IconCategory, IconChevronDown } from '@tabler/icons-react';
+import { IconCategory, IconChevronDown, IconLogout } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MAIN_MENU } from '../_menu';
+import { JWT } from 'next-auth/jwt';
+import { IconUser } from '@tabler/icons-react';
+import { signOut } from 'next-auth/react';
 
-export function SideBar() {
+interface SidebarProps {
+  session: JWT | null;
+}
+
+export function SideBar({ session }: SidebarProps) {
   const pathname = usePathname();
 
   const theme = useMantineTheme();
@@ -33,69 +40,127 @@ export function SideBar() {
           </Center>
           <Divider />
         </Stack>
-        <Box
+        <Stack
           style={{
             flex: '1 1 auto',
           }}
         >
-          <Text color="grape" mb="xs">
-            Main Menu
-          </Text>
-          <Stack spacing="sm">
-            {MAIN_MENU.map((menu, index) => (
+          <div>
+            <Text color="grape" mb="xs">
+              Main Menu
+            </Text>
+            <Stack spacing="sm">
+              {MAIN_MENU.map((menu, index) => (
+                <Button
+                  px={8}
+                  key={index}
+                  variant="subtle"
+                  size="md"
+                  fullWidth
+                  leftIcon={<menu.Icon />}
+                  styles={{
+                    inner: {
+                      justifyContent: 'flex-start',
+                    },
+                    label: {
+                      color:
+                        pathname !== menu.path
+                          ? theme.colors.dark[9]
+                          : undefined,
+                    },
+                  }}
+                  component={Link}
+                  href={menu.path}
+                >
+                  {menu.label}
+                </Button>
+              ))}
               <Button
                 px={8}
-                key={index}
                 variant="subtle"
                 size="md"
                 fullWidth
-                leftIcon={<menu.Icon />}
+                leftIcon={<IconCategory />}
                 styles={{
                   inner: {
                     justifyContent: 'flex-start',
                   },
                   label: {
-                    color:
-                      pathname !== menu.path ? theme.colors.dark[9] : undefined,
+                    flex: '1 0 auto',
+                    color: theme.colors.dark[9],
                   },
                 }}
-                component={Link}
-                href={menu.path}
+                rightIcon={<IconChevronDown />}
               >
-                {menu.label}
+                Categories
               </Button>
-            ))}
-            <Button
-              px={8}
-              variant="subtle"
-              size="md"
-              fullWidth
-              leftIcon={<IconCategory />}
-              styles={{
-                inner: {
-                  justifyContent: 'flex-start',
-                },
-                label: {
-                  flex: '1 0 auto',
-                  color: theme.colors.dark[9],
-                },
-              }}
-              rightIcon={<IconChevronDown />}
-            >
-              Categories
+            </Stack>
+          </div>
+          {session && (
+            <div>
+              <Text color="grape" mb="xs">
+                Account
+              </Text>
+              <Stack spacing="sm">
+                <Button
+                  px={8}
+                  variant="subtle"
+                  size="md"
+                  fullWidth
+                  leftIcon={<IconUser />}
+                  styles={{
+                    inner: {
+                      justifyContent: 'flex-start',
+                    },
+                    label: {
+                      color:
+                        pathname !== '/profile'
+                          ? theme.colors.dark[9]
+                          : undefined,
+                    },
+                  }}
+                  component={Link}
+                  href="/profile"
+                >
+                  Profile
+                </Button>
+
+                <Button
+                  px={8}
+                  variant="subtle"
+                  size="md"
+                  fullWidth
+                  leftIcon={<IconLogout />}
+                  color="red"
+                  styles={{
+                    inner: {
+                      justifyContent: 'flex-start',
+                    },
+                    label: {
+                      flex: '1 0 auto',
+                    },
+                  }}
+                  onClick={async () => await signOut()}
+                >
+                  Logout
+                </Button>
+              </Stack>
+            </div>
+          )}
+        </Stack>
+
+        {!session && (
+          <Stack>
+            <Divider />
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+              laoreet at dolor id porta.
+            </Text>
+            <Button radius="xl" size="md" component={Link} href="/auth">
+              Join
             </Button>
           </Stack>
-        </Box>
-        <Stack>
-          <Divider />
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet
-            at dolor id porta.
-          </Text>
-          <Button radius="xl" size="md">
-            Join
-          </Button>
-        </Stack>
+        )}
       </Stack>
     </Box>
   );

@@ -1,4 +1,4 @@
-import { IconCategory, IconChartAreaLine, IconHome } from '@tabler/icons-react';
+import { IconChartAreaLine, IconHome } from '@tabler/icons-react';
 
 export const MAIN_MENU = [
   {
