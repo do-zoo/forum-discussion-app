@@ -77,7 +77,9 @@ export function createOptions(req: NextApiRequest): NextAuthOptions {
             } catch (err) {
               if (err instanceof AxiosError) {
                 const message = err?.response?.data;
-                throw message;
+                if (message) {
+                  throw message;
+                }
               }
               throw err;
             }
