@@ -11,12 +11,21 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import { IconKey, IconMail, IconUser } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import {
+  IconCheck,
+  IconKey,
+  IconMail,
+  IconUser,
+  IconX,
+} from '@tabler/icons-react';
 import omit from 'lodash/omit';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export function RegisterForm() {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       name: '',
@@ -44,6 +53,26 @@ export function RegisterForm() {
           signIn('credentials', {
             email,
             password,
+            redirect: false,
+            callbackUrl: `${window.location.origin}/`,
+          }).then(res => {
+            if (res?.url) {
+              notifications.show({
+                title: 'Yeay... You did great',
+                message: 'Login success!',
+                color: 'green',
+                icon: <IconCheck />,
+              });
+              router.push(res?.url);
+            }
+            if (res?.error) {
+              notifications.show({
+                title: 'Oops, something wrong',
+                message: res?.error,
+                color: 'red',
+                icon: <IconX />,
+              });
+            }
           });
         },
       }

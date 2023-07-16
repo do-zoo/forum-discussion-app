@@ -12,6 +12,7 @@ import {
 import { useForm, zodResolver } from '@mantine/form';
 import { useToggle } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { IconKey, IconMail } from '@tabler/icons-react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
@@ -37,9 +38,10 @@ export function LoginForm() {
     }).then(res => {
       if (res?.url) {
         notifications.show({
-          title: 'Oops, something wrong',
-          message: 'Yeay... Login success!',
+          title: 'Yeay... You did great',
+          message: 'Login success!',
           color: 'green',
+          icon: <IconCheck />,
         });
         router.push(res?.url);
       }
@@ -49,6 +51,7 @@ export function LoginForm() {
           title: 'Oops, something wrong',
           message: res?.error,
           color: 'red',
+          icon: <IconX />,
         });
       }
     });
