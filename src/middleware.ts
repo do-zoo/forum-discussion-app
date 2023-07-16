@@ -1,3 +1,5 @@
+import { withAuth } from 'next-auth/middleware';
+import { NextMiddlewareResult } from 'next/dist/server/web/types';
 import {
   NextFetchEvent,
   NextRequest,
@@ -5,8 +7,6 @@ import {
   userAgent,
 } from 'next/server';
 import { withCookie } from './utils/helpers';
-import { NextMiddlewareResult } from 'next/dist/server/web/types';
-import { withAuth } from 'next-auth/middleware';
 import { getSession } from './utils/helpers/auth/server';
 
 const protectedRoutes = ['/profile', '/funding'];

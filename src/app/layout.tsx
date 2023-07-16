@@ -14,6 +14,20 @@ export const metadata = {
   description: 'Forum Discussion App is app for discussion',
 };
 
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+async function Layout({ children }: LayoutProps) {
+  const viewport = cookies().get('viewport')?.value;
+  const session = await getSession();
+
+  return adaptiveRender(viewport, {
+    desktop: <DesktopLayout session={session}>{children}</DesktopLayout>,
+    mobile: <MobileLayout>{children}</MobileLayout>,
+  });
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -33,17 +47,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
-async function Layout({ children }: LayoutProps) {
-  const viewport = cookies().get('viewport')?.value;
-  const session = await getSession();
-
-  return adaptiveRender(viewport, {
-    desktop: <DesktopLayout session={session}>{children}</DesktopLayout>,
-    mobile: <MobileLayout>{children}</MobileLayout>,
-  });
 }
