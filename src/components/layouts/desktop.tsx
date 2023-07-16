@@ -57,8 +57,6 @@ export function DesktopLayout({ children, session }: DesktopLayoutProps) {
 
   const enableLayout = !LAYOUT_BLACK_LIST.some(path => segment[0] === path);
 
-  console.log(useSession());
-
   return (
     <Box bg="gray.2" mih="100vh">
       {enableLayout ? (

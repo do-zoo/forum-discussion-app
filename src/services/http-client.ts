@@ -1,13 +1,14 @@
 'use client';
 import { sameOriginPaths } from '@forum-discussion/utils/constants';
+import { getSession } from '@forum-discussion/utils/helpers/auth/client';
 import {
   Axios,
   AxiosError,
   AxiosInstance,
   CustomParamsSerializer,
 } from 'axios';
-import type { Session } from 'next-auth';
-import { getSession, signOut } from 'next-auth/react';
+import { JWT } from 'next-auth/jwt';
+import { signOut } from 'next-auth/react';
 import { stringify } from 'qs';
 
 interface IHttpClient {
@@ -23,7 +24,7 @@ interface IHttpClient {
 
 class HttpClient implements IHttpClient {
   private isRefreshingAccessToken: boolean;
-  private session: Session | null;
+  private session: JWT | null;
 
   constructor(private axiosInstance: AxiosInstance) {
     this.axiosInstance = axiosInstance;
@@ -32,10 +33,7 @@ class HttpClient implements IHttpClient {
 
     this.axiosInstance.interceptors.request.use(
       async config => {
-        if (
-          this.session === null ||
-          Date.now() >= new Date(this.session?.expires).getTime()
-        ) {
+        if (this.session === null) {
           this.session = await getSession();
         }
 
