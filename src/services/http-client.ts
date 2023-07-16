@@ -34,15 +34,15 @@ class HttpClient implements IHttpClient {
       async config => {
         if (
           this.session === null ||
-          Date.now() >= (this.session.exp ?? 0) * 1000
+          Date.now() >= new Date(this.session?.expires).getTime()
         ) {
           this.session = await getSession();
         }
 
         config.headers.Accept = 'application/json';
 
-        if (this.session?.access_token) {
-          config.headers.Authorization = `Bearer ${this.session.access_token}`;
+        if (this.session?.token) {
+          config.headers.Authorization = `Bearer ${this.session.token}`;
         }
 
         return config;

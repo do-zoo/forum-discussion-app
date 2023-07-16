@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "type-check": "tsc --project ./tsconfig.json"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -45,6 +46,7 @@
     "@svgr/webpack": "^8.0.1",
     "@types/lodash": "^4.14.195",
     "@types/qs": "^6.9.7",
+    "eslint-config-prettier": "^8.8.0",
     "prettier": "^2.8.8"
   }
 }
