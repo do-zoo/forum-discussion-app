@@ -43,6 +43,7 @@ export function LoginForm() {
           color: 'green',
           icon: <IconCheck />,
         });
+        router.refresh();
         router.push(res?.url);
       }
       if (res?.error) {

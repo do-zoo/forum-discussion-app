@@ -9,12 +9,11 @@ import {
 import { withCookie } from './utils/helpers';
 import { getSession } from './utils/helpers/auth/server';
 
-const protectedRoutes = ['/profile', '/funding'];
+const protectedRoutes = ['/profile', '/create'];
 const authRoutes = ['/auth'];
 
 export async function middleware(req: NextRequest, evt: NextFetchEvent) {
   const { device } = userAgent(req);
-
   const viewport = device.type === 'mobile' ? 'mobile' : 'desktop';
 
   const isProtectedRoute = protectedRoutes.some(route =>

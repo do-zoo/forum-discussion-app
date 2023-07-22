@@ -40,7 +40,6 @@ export function Header({ session }: HeaderProps) {
     toggleAction.close();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
   function isActive(path: string) {
     if (pathname !== '/') {
       return pathname === path;

@@ -19,6 +19,7 @@ specifiers:
   '@types/react-dom': 18.2.7
   axios: ^1.4.0
   dayjs: ^1.11.9
+  dotenv: ^16.3.1
   eslint: 8.45.0
   eslint-config-next: 13.4.10
   eslint-config-prettier: ^8.8.0
@@ -48,6 +49,7 @@ dependencies:
   '@types/react-dom': 18.2.7
   axios: 1.4.0
   dayjs: 1.11.9
+  dotenv: 16.3.1
   eslint: 8.45.0
   eslint-config-next: 13.4.10_ko3fmmbeyij36muomfgt2u76xu
   lodash: 4.17.21
@@ -2859,6 +2861,11 @@ packages:
       no-case: 3.0.4
       tslib: 2.6.0
     dev: true
+
+  /dotenv/16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /duplexer2/0.1.4:
     resolution: {integrity: sha512-asLFVfWWtJ90ZyOUHMqk7/S2w2guQKxUI2itj3d92ADHhxUSbCMGi1f1cBcJ7xM1To+pE/Khbwo1yuNbMEPKeA==}
